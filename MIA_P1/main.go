@@ -13,6 +13,6 @@ import (
 func main() {
 	fmt.Println("===Start===")
 
-	Analyzer.AnalyzeType()
+	Analyzer.Analyze()
 }
 

@@ -3,46 +3,78 @@ package Analyzer
 import (
 	"flag"
 	"fmt"
+	"bufio"
+	"os"
 	"regexp"
 	"strings"
 	"encoding/binary"
 	"MIA_P1/Utilities"
 	"MIA_P1/Structs"
 )
+func Analyze(){
 
-func AnalyzeType() {
-	// define flags
-	// size := flag.Int("size", 0, "Tamaño")
-	// fit := flag.String("fit", "f", "Ajuste")
-	// unit := flag.String("unit", "m", "Unidad")
+	for true {
+		var input string
+		fmt.Println("Enter command: ")
 
-	// define flags
-	size := flag.Int("size", 0, "Tamaño")
-	driveletter := flag.String("driveletter", "", "Letra")
-	name := flag.String("name", "", "Nombre")
-	unit := flag.String("unit", "m", "Unidad")
-	type_ := flag.String("type", "p", "Tipo")
-	fit2 := flag.String("fit", "f", "Ajuste")
+		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Scan() 
+		input = scanner.Text()
 
+		words := strings.Fields(input)
+		typecommand := words[0]
+
+		//mkdisk -size=3000 -unit=K -fit=BF
+		//fdisk -size=300 -driveletter=A -name=Particion1
 	
+		if strings.Contains(strings.ToLower(typecommand), "mkdisk") {
+			AnalyzeMkdisk(input)
+		}else if strings.Contains(strings.ToLower(typecommand), "fdisk") {
+			AnalyzeFdisk(input)
+		}else{
+			fmt.Println("Error: Command not found")
+		}
 
-	// Parse the command line into the defined flags. 
-	flag.Parse()
-
-	// Command line input "-size=3000 -unit=\"K a\""
-	// input := "-size=3000 -unit=K -fit=\"BF\"" 
-	
-	input := "-size=300 -driveletter=A -name=Particion1" 
-	processInputFdisk(input, size, driveletter, name, unit, type_, fit2)
-	fdisk(*size, *driveletter, *name, *unit, *type_, *fit2)
-
-	// Proccess the input string and set the values of the flags
-	// processInputMkdisk(input, size, fit, unit)
-
-	// Luego puedes llamar a tu función mkdisk y pasarle los valores necesarios
-	// mkdisk(*size, *fit, *unit)
-
+	}
 }
+
+func AnalyzeMkdisk(input string){
+	// Define flags
+	fs := flag.NewFlagSet("mkdisk", flag.ExitOnError)
+	size := fs.Int("size", 0, "Tamaño")
+	fit := fs.String("fit", "f", "Ajuste")
+	unit := fs.String("unit", "m", "Unidad")
+
+	// Process the input string and set the values of the flags
+	processInputMkdisk(input, fs)
+
+	// Parse the flags
+	fs.Parse(os.Args[1:])
+
+	mkdisk(*size, *fit, *unit)
+
+} 
+
+func AnalyzeFdisk(input string) {
+	// Define flags
+	fs := flag.NewFlagSet("fdisk", flag.ExitOnError)
+	size := fs.Int("size", 0, "Tamaño")
+	driveletter := fs.String("driveletter", "", "Letra")
+	name := fs.String("name", "", "Nombre")
+	unit := fs.String("unit", "m", "Unidad")
+	type_ := fs.String("type", "p", "Tipo")
+	fit := fs.String("fit", "f", "Ajuste")
+
+	// Parse the flags
+	fs.Parse(os.Args[1:])
+
+	// Process the input string and set the values of the flags
+	processInputFdisk(input, fs)
+
+	// Call fdisk with the parsed values
+	fdisk(*size, *driveletter, *name, *unit, *type_, *fit)
+}
+
 
 func fdisk(size int, driveletter string, name string, unit string, type_ string, fit string) {
 	fmt.Println("======Start FDISK======")
@@ -237,7 +269,7 @@ func mkdisk(size int, fit string, unit string) {
 
 }
 
-func processInputMkdisk(input string, size *int, fit *string, unit *string) {
+func processInputMkdisk(input string, fs *flag.FlagSet) {
 	re := regexp.MustCompile(`-(\w+)=("[^"]+"|\S+)`)
 
 	matches := re.FindAllStringSubmatch(input, -1)
@@ -253,21 +285,21 @@ func processInputMkdisk(input string, size *int, fit *string, unit *string) {
 		case "size":
 			sizeValue := 0
 			fmt.Sscanf(flagValue, "%d", &sizeValue)
-			*size = sizeValue
+			fs.Set("size", fmt.Sprintf("%d", sizeValue))
 		case "fit":
 			flagValue = flagValue[:1]
 			flagValue = strings.ToLower(flagValue)
-			*fit = flagValue
+			fs.Set("fit", flagValue)
 		case "unit":
 			flagValue = strings.ToLower(flagValue)
-			*unit = flagValue
+			fs.Set("unit", flagValue)
 		default:
 			fmt.Println("Error: Flag not found")
 		}
 	}
 }
 
-func processInputFdisk(input string, size *int, driveletter *string, name *string, unit *string, type_ *string, fit *string) {
+func processInputFdisk(input string, fs *flag.FlagSet) {
 	re := regexp.MustCompile(`-(\w+)=("[^"]+"|\S+)`)
 
 	matches := re.FindAllStringSubmatch(input, -1)
@@ -280,30 +312,8 @@ func processInputFdisk(input string, size *int, driveletter *string, name *strin
 		flagValue = strings.Trim(flagValue, "\"")
 
 		switch flagName {
-		case "size":
-			sizeValue := 0
-			fmt.Sscanf(flagValue, "%d", &sizeValue)
-			*size = sizeValue
-		case "fit":
-			flagValue = flagValue[:1]
-			flagValue = strings.ToLower(flagValue)
-			*fit = flagValue
-		case "unit":
-			flagValue = strings.ToLower(flagValue)
-			*unit = flagValue
-
-		case "driveletter":
-			flagValue = strings.ToUpper(flagValue)
-			*driveletter = flagValue
-		
-		case "name":
-			flagValue = strings.ToLower(flagValue)
-			*name = flagValue
-		
-		case "type":
-			flagValue = strings.ToLower(flagValue)
-			*type_ = flagValue
-
+		case "size", "fit", "unit", "driveletter", "name", "type":
+			fs.Set(flagName, flagValue)
 		default:
 			fmt.Println("Error: Flag not found")
 		}
