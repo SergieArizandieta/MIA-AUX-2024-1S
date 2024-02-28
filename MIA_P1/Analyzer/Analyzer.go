@@ -42,7 +42,7 @@ func Analyze(){
 		//mkdisk -size=3000 -unit=K -fit=BF
 		//fdisk -size=300 -driveletter=A -name=Particion1
 		//mount -driveletter=A -name=Particion1
-		//mkfs -type=full -id=A019
+		//mkfs -type=full -id=A119
 
 	}
 }
@@ -79,12 +79,12 @@ func fn_mkfs(input string){
 	// Process the input
 	for _, match := range matches {
 		flagName := match[1]
-		flagValue := strings.ToLower(match[2])
+		flagValue := match[2]
 
 		flagValue = strings.Trim(flagValue, "\"")
 
 		switch flagName {
-		case "id", "type":
+		case "id", "type", "fs":
 			fs.Set(flagName, flagValue)
 		default:
 			fmt.Println("Error: Flag not found")
@@ -93,6 +93,8 @@ func fn_mkfs(input string){
 
 	// Call the function
 	FileSystem.Mkfs(*id, *type_, *fs_)
+	
+
 }
 
 func fn_mount(input string){
@@ -124,7 +126,6 @@ func fn_mount(input string){
 
 	// Call the function
 	DiskManagement.Mount(*driveletter, *name)
-
 }
 
 func fn_fdisk(input string) {

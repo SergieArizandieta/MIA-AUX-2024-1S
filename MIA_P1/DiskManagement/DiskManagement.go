@@ -9,19 +9,19 @@ import (
 	"MIA_P1/Structs"
 )
 
-func Mount( driveletter string, name string) {
-   fmt.Println("======Start MOUNT======")
-   fmt.Println("Driveletter:", driveletter)
-   fmt.Println("Name:", name)
+func Mount(driveletter string, name string) {
+	fmt.Println("======Start MOUNT======")
+	fmt.Println("Driveletter:", driveletter)
+	fmt.Println("Name:", name)
 
-   // Open bin file
+	// Open bin file
 	filepath := "./test/" + strings.ToUpper(driveletter)  + ".bin"
 	file, err := Utilities.OpenFile(filepath)
 	if err != nil {
 		return
 	}
 
-   var TempMBR Structs.MRB
+	var TempMBR Structs.MRB
 	// Read object from bin file
 	if err := Utilities.ReadObject(file, &TempMBR, 0); err != nil {
 		return
@@ -32,34 +32,35 @@ func Mount( driveletter string, name string) {
 
 	fmt.Println("-------------")
 
+	var index int = -1
+	var count = 0
+	// Iterate over the partitions
+	for i := 0; i < 4; i++ {
+		if TempMBR.Partitions[i].Size != 0 {
+			count++
+			if strings.Contains(string(TempMBR.Partitions[i].Name[:]), name) {
+				index = i
+				break
+			}
+		}
+	}
 
-   var index int = -1
-   // Iterate over the partitions
-   for i := 0; i < 4; i++ {
-      if TempMBR.Partitions[i].Size != 0 {
-         if strings.Contains(string(TempMBR.Partitions[i].Name[:]), name) {
-            fmt.Println("Partition found")
-            index = i
-            break
-         }
-      }
-   }
+	if index != -1 {
+		fmt.Println("Partition found")
+		Structs.PrintPartition(TempMBR.Partitions[index])
+	}else{
+		fmt.Println("Partition not found")
+		return
+	}
 
-   if index != -1 {
-      fmt.Println("Partition found")
-      Structs.PrintPartition(TempMBR.Partitions[index])
-   }else{
-      fmt.Println("Partition not found")
-      return
-   }
-   
-   // id = Driveletter +  (index) + 19
-   id := strings.ToUpper(driveletter) + strconv.Itoa(index) + "19"
-   
-   copy(TempMBR.Partitions[index].Id[:], id)
-   copy(TempMBR.Partitions[index].Status[:], "1")
+	// id = DriveLetter + Correlative + 19
 
-   // Overwrite the MBR
+	id := strings.ToUpper(driveletter) + strconv.Itoa(count) + "19"
+
+	copy(TempMBR.Partitions[index].Status[:], "1")
+	copy(TempMBR.Partitions[index].Id[:], id)
+
+	// Overwrite the MBR
 	if err := Utilities.WriteObject(file,TempMBR,0); err != nil {
 		return
 	}
@@ -76,7 +77,7 @@ func Mount( driveletter string, name string) {
 	// Close bin file
 	defer file.Close()
 
-   fmt.Println("======End MOUNT======")
+	fmt.Println("======End MOUNT======")
 }
 
 func Fdisk(size int, driveletter string, name string, unit string, type_ string, fit string) {
@@ -268,3 +269,4 @@ func Mkdisk(size int, fit string, unit string) {
 	fmt.Println("======End MKDISK======") 
 
 }
+
