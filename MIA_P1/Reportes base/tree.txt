@@ -1,0 +1,90 @@
+
+
+digraph H {
+    graph [pad="0.5", nodesep="0.5", ranksep="1"];
+    node [shape=plaintext]
+     rankdir=LR;
+  Inodo0 [
+
+   label=<
+     <table  border="0" cellborder="1" cellspacing="0">
+       <tr><td colspan="3">Inodo 0</td></tr>
+       <tr><td>AD1</td><td port='P0'>1</td></tr>
+       <tr><td>AD2</td><td port='P1'>211</td></tr>
+     </table>
+  >];
+  
+  Inodo1 [
+   label=<
+     <table border="0" cellborder="1" cellspacing="0">
+       <tr><td colspan="3">Inodo 0</td></tr>
+       <tr><td>AD1</td><td port='P0'>1</td></tr>
+       <tr><td>AD2</td><td port='P1'>2</td></tr>
+     </table>
+  >];
+  
+  Inodo2 [
+   label=<
+     <table border="0" cellborder="1" cellspacing="0">
+       <tr><td colspan="3">Inodo 0</td></tr>
+       <tr><td>AD1</td><td port='P0'>1</td></tr>
+       <tr><td>AD2</td><td port='P1'>2</td></tr>
+     </table>
+  >];
+  
+  Inodo0:P0 -> Inodo1;
+  Inodo0:P1 -> Inodo2;
+  
+}
+
+
+/////////////
+
+
+digraph H {
+    graph [pad="0.5", nodesep="0.5", ranksep="1"];
+    node [shape=plaintext]
+     rankdir=LR;
+     
+  Inodo0 [
+   label=<
+     <table  border="0" cellborder="1" cellspacing="0">
+       <tr><td colspan="3" port='0'>Inodo 0</td></tr>
+       <tr><td>AD1</td><td port='1'>1</td></tr>
+       <tr><td>AD2</td><td port='2'>211</td></tr>
+     </table>
+  >];
+  
+  Inodo1 [
+   label=<
+     <table  border="0" cellborder="1" cellspacing="0">
+       <tr><td colspan="3" port='0'>Inodo 0</td></tr>
+       <tr><td>AD1</td><td port='1'>1</td></tr>
+       <tr><td>AD2</td><td port='2'>211</td></tr>
+     </table>
+  >];
+  
+  Inodo2 [
+   label=<
+     <table  border="0" cellborder="1" cellspacing="0">
+       <tr><td colspan="3" port='0'>Inodo 0</td></tr>
+       <tr><td>AD1</td><td port='1'>1</td></tr>
+       <tr><td>AD2</td><td port='2'>211</td></tr>
+     </table>
+  >];
+  Inodo3 [
+   label=<
+     <table  border="0" cellborder="1" cellspacing="0">
+       <tr><td colspan="3" port='0'>Inodo 0</td></tr>
+       <tr><td>AD1</td><td port='1'>1</td></tr>
+       <tr><td>AD2</td><td port='2'>211</td></tr>
+     </table>
+  >];
+
+  
+  Inodo0:1 -> Inodo1:0;
+  Inodo0:2 -> Inodo2:0;
+  Inodo2:1 -> Inodo3:0;
+  
+}
+
