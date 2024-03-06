@@ -199,7 +199,7 @@ func create_ext2 (n int32, partition Structs.Partition ,newSuperblock Structs.Su
       Inode1.I_block[i] = -1
    }
 
-   Inode0.I_block[0] = 1
+   Inode1.I_block[0] = 1
 
 
    data := "1,G,root\n1,U,root,root,123\n"
@@ -223,6 +223,10 @@ func create_ext2 (n int32, partition Structs.Partition ,newSuperblock Structs.Su
    err = Utilities.WriteObject(file, byte(1), int64(newSuperblock.S_bm_block_start))
    err = Utilities.WriteObject(file, byte(1), int64(newSuperblock.S_bm_block_start + 1))
 
+
+   fmt.Println("Inode 0:", int64(newSuperblock.S_inode_start))
+   fmt.Println("Inode 1:", int64(newSuperblock.S_inode_start + int32(binary.Size(Structs.Inode{}))))
+   
    // write inodes
    err = Utilities.WriteObject(file, Inode0, int64(newSuperblock.S_inode_start)) //Inode 0
    err = Utilities.WriteObject(file, Inode1, int64(newSuperblock.S_inode_start + int32(binary.Size(Structs.Inode{}))) ) //Inode 1
