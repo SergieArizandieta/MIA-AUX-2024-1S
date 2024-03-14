@@ -5,7 +5,7 @@
 #CAMBIAR LOS IDS
 
 #DISCO X
-mkdisk -param=x -size=30 -path=/home/serchiboi/archivos/Disco.dsk
+mkdisk -param=x -size=30 -path=/home/serchiboi/archivos/Disco.dsk # ERR PARAMETROS
 
 #CREACION DE DISCOS---------------------------------------------------
 Mkdisk -size=50 -unit=M -fit=FF                   # 50M A
