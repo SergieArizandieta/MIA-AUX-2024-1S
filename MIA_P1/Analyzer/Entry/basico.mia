@@ -10,7 +10,7 @@ mkdisk -param=x -size=30 -path=/home/serchiboi/archivos/Disco.dsk # ERR PARAMETR
 #CREACION DE DISCOS---------------------------------------------------
 Mkdisk -size=50 -unit=M -fit=FF                   # 50M A
 Mkdisk -unit=k -size=51200 -fit=BF                # 50M B
-mkDisk -size=10                                   # 10M C
+mkDisk -size=13                                   # 13M C
 mkdisk -size=51200 -unit=K                        # 50M D
 mkDisk -size=20 -unit=M -fit=WF                   # 20M E
 Mkdisk -size=50 -unit=M -fit=FF                   # 50M F X
@@ -64,7 +64,7 @@ fdisk -type=P -unit=m -name=Part25 -size=20 -driveletter=C    # 20M #ERR FALTA E
 fdisk -type=P -unit=m -name=Part26 -size=4 -driveletter=C     #4M
 fdisk -type=P -unit=m -name=Part27 -size=4 -driveletter=C     #4M
 fdisk -type=P -unit=m -name=Part28 -size=1 -driveletter=C     #1M
-#LIBRE DISCO 3: 10-9= 1 -> 10%
+#LIBRE DISCO 3: 13-9= 4 -> 30.77%
 
 #ELIMINAR Y AGREGAR ESPACIO DISCO 3
 fdisk -add=-1000 -unit=m -driveletter=C -name=Part26 # ERR SIZE NEGATIVO
@@ -72,7 +72,7 @@ fdisk -add=1000 -unit=m -driveletter=C -name=Part26 # ERR PARTICION NO TIENE ESP
 fdisk -add=-2 -unit=m -driveletter=C -name=Part26 # 4-2= 2M
 fdisk -delete=full -name=Part27 -driveletter=C # 0
 fdisk -add=4 -unit=m -driveletter=C -name=Part28 # 4+1= 5M
-#LIBRE DISCO 3: 10-7= 3 -> 30%
+#LIBRE DISCO 3: 13-7 = 3 -> 53.84%
 
 #DISCO 5
 fdisk -type=E -unit=k -name=Part29 -size=5120 -driveletter=E -fit=BF # 5MB
