@@ -1,0 +1,313 @@
+#ENTRADA SEGUNDA PARTE MIA
+#Seccion N - Sergie Arizandieta
+#2S 2023
+#CAMBIAR /home/serchiboi -> POR SU USUARIO EJ ->  /home/SU_USER 
+#CAMBIAR LOS IDS
+
+#CREACION DE DISCOS------------------------------------------------
+Mkdisk -size=20 -unit=m
+Mkdisk -size=20 -unit=m
+
+#CREACION DE PARTICION------------------------------------------------
+fdisk -type=P -unit=K -name=Part1 -size=7680 -driveletter=A -fit=BF
+fdisk -type=P -unit=K -name=Part1 -size=7680 -driveletter=B -fit=BF
+
+#MOUNT------------------------------------------------
+mount -driveletter=A -name=Part1 #191a -> id1 -> cambiar el 191a por el ID que a ustedes les genera
+mount -driveletter=B -name=Part1 #192a -> id2 -> cambiar el 192a por el ID que a ustedes les genera
+
+#CREACION DE SISTEMA DE ARCHIVOS------------------------------------------------
+mkfs -type=full -id=191a -fs=2fs
+mkfs -type=full -id=192a -fs=3fs
+
+#EXT2------------------------------------------------
+#------------------------REPORTES 1----------------
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte1_sb.jpg" -name=sb
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte1_tree.jpg" -name=tree
+
+pause
+mkdisk -param=x #ERR
+
+#LOGIN------------------------------------------------
+login -user=root -pass=123 -id=191a
+
+login -user=root -pass=123 -id=191a #ERR SESION INICIADA
+
+pause
+mkdisk -param=x #ERR
+
+#CREACION DE GRUPOS
+mkgrp -name=usuarios
+mkgrp -name=adm
+mkgrp -name=mail
+mkgrp -name=news
+mkgrp -name=sys
+mkgrp -name=sys #ERR YA EXISTE EL GRUPO
+cat -file=/user.txt
+
+pause
+mkdisk -param=x #ERR
+
+#ELIMINANDO GRUPOS------------------------------------------------
+rmgrp -name=mail
+cat -file=/user.txt
+
+pause
+mkdisk -param=x #ERR
+
+#CREACION DE USUARIOS------------------------------------------------
+mkusr -user="usuario1" -pass=password -grp=root
+mkusr -user="user1" -pass=abc -grp=usuarios
+mkusr -user="user2" -pass=abc -grp=usuarios
+mkusr -user="user2" -pass=abc -grp=usuarios #ERR EL USUARIO YA EXISTE
+mkusr -user="user3" -pass=abc -grp=system #ERR GRUPO NO EXISTE
+cat -file=/user.txt
+
+pause
+mkdisk -param=x #ERR
+
+#ELIMINANDO USUARIOS------------------------------------------------
+rmusr -user=user2
+cat -file=/user.txt
+
+pause
+mkdisk -param=x #ERR
+
+#CREACION DE CARPETAS------------------------------------------------
+mkdir -path=/bin
+mkdir -path=/boot
+mkdir -path=/cdrom
+mkdir -path=/dev
+mkdir -path=/etc
+mkdir -path=/home
+mkdir -path=/lib
+mkdir -path=/lib64
+mkdir -path=/media
+mkdir -path=/mnt
+mkdir -path=/opt
+mkdir -path=/proc
+mkdir -path=/run
+mkdir -path=/sbin
+mkdir -path=/snap
+mkdir -path=/srv
+mkdir -path=/sys
+mkdir -path=/tmp
+mkdir -path=/var
+mkdir -path="/home/archivos/archivos 19"
+mkdir -r -path=/home/archivos/user/docs/usac 
+mkdir -r -path=/home/archivos/carpeta1/carpeta2/carpeta3/carpeta4/carpeta5 
+
+#------------------------REPORTE 2----------------
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte2_tree.jpg" -name=tree
+
+pause
+mkdisk -param=x #ERR
+
+logout
+logout #ERR NO HAY SESION INICIADA
+
+pause
+mkdisk -param=x #ERR
+
+login -user=usuario1 -pass=password -id=191a
+
+#CREACION DE ARCHIVOS------------------------------------------------
+mkfile -path=/home/archivos/user/docs/Tarea.txt -size=75
+mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=768
+
+#Para este comando hay que crear un archivo en la computadora y en cont poner la ruta de ese archivo
+#Crear un archivo txt en su escritorio llamado IA
+
+mkfile -path=/home/archivos/user/docs/Tarea3.txt -size=10 #-cont=/home/archivos/user/Desktop/IA.txt
+
+mkfile -path="/home/archivos/noexiste/b1.txt" #ERRNO EXISTE RUTA
+
+mkfile -path="/home/archivos/b1.txt" -size=-45 #ERR NEGATIVO
+
+mkfile -r -path=/home/archivos/user/docs/usac/archivos/proyectos/fase1/entrada.txt #RECURSIVO
+
+pause
+mkdisk -param=x #ERR
+
+cat -file=/home/archivos/user/docs/Tarea2.txt
+cat -file=/home/archivos/user/docs/Tarea3.txt
+
+
+pause
+mkdisk -param=x #ERR
+
+
+#------------------------REPORTE 3----------------
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte3_tree.jpg" -name=tree
+
+pause
+mkdisk -param=x #ERR
+
+#REMOVER------------------------------------------------
+remove -path=/home/archivos/user/docs/usac #Carpeta
+remove -path=/home/archivos/user/docs/Tarea.txt #Archivo
+
+#------------------------REPORTE 4----------------
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte4_tree.jpg" -name=tree
+
+pause
+mkdisk -param=x #ERR
+
+#MOVER------------------------------------------------
+move -path=/home/archivos/user/docs/Tarea3.txt -dest=/home #archivo
+
+#------------------------REPORTES 5----------------
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_inode.jpg" -name=inode
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_block.pdf" -name=block
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_bm_inode.txt" -name=bm_inode
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_bm_block.txt" -name=bm_block
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_tree.jpg" -name=tree
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_sb.jpg" -name=sb
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_journaling.jpg" -name=journaling #ERR EXT2 NO TIENE JOURNAL
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_file.jpg" -ruta=/home/archivos/user/docs/Tarea2.txt  -name=file
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_ls.jpg" -ruta=/home/archivos/user/docs -name=ls
+
+pause
+mkdisk -param=x #ERR
+
+logout
+
+login -user=root -pass=123 -id=191a
+
+#CHMOD cambio de permisos------------------------------------------------
+chmod -r -path="/home/archivos/archivos 19" -ugo=001
+chmod -path="/home/archivos/user/docs/Tarea2.txt" -ugo=001
+
+logout
+
+LOGIN -user=usuario1 -pass=password -id=191a
+
+mkdir -r -path="/home/archivos/archivos 19/no/tiene/que/hacerla/por/permisos" #ERR NO TIENE PERMISOS DE ESCRITURA
+cat -file=/home/archivos/user/docs/Tarea2.txt #ERR NO TIENE PERMISOS DE LECTURA
+
+#------------------------REPORTES 6----------------
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte6_inode.jpg" -name=inode
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte6_block.pdf" -name=block
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte6_tree.jpg" -name=tree
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte6_bm_block.txt" -name=bm_block
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte6_bm_inode.txt" -name=bm_inode
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte6_sb.jpg" -name=sb
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte6_journaling.jpg" -name=journaling #ERR EXT2 NO TIENE JOURNAL
+
+pause
+mkdisk -param=x #ERR
+
+logout
+login -user=root -pass=123 -id=192a
+
+pause
+mkdisk -param=x #ERR
+
+#EXT3------------------------------------------------
+#CREACION DE CARPETAS------------------------------------------------
+mkdir -path=/1-2
+
+mkdir -path=/2-1
+mkdir -path=/2-2
+
+mkdir -path=/3-1
+mkdir -path=/3-2
+
+mkdir -path=/4-1
+mkdir -path=/4-2
+
+mkdir -path=/5-1
+mkdir -path=/5-2
+
+mkdir -path=/6-1
+mkdir -path=/6-2
+
+mkdir -path=/7-1
+mkdir -path=/7-2
+
+mkdir -path=/8-1
+mkdir -path=/8-2
+
+mkdir -path=/9-1
+mkdir -path=/9-2
+
+mkdir -path=/10-1
+mkdir -path=/10-2
+
+mkdir -path=/11-1
+mkdir -path=/11-2
+
+mkdir -path=/12-1
+mkdir -path=/12-2
+
+
+#------------------------REPORTES 7----------------
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte7_tree.jpg" -name=tree
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte7_journaling.jpg" -name=journaling
+
+pause
+mkdisk -param=x #ERR
+
+#loss -id=192a
+#------------------------REPORTES 8----------------
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte8_tree.jpg" -name=tree
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte8_journaling.jpg" -name=journaling
+
+
+pause
+mkdisk -param=x #ERR
+
+
+#recovery -id=192a
+#------------------------REPORTES 9----------------
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte9_tree.jpg" -name=tree
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte9_journaling.jpg" -name=journaling
+
+
+pause
+mkdisk -param=x #ERR
+
+
+#CREAR GRUPO------------------------------------------------
+mkgrp -name=usuarios
+
+#CREAR USUARIO------------------------------------------------
+mkusr -user="user1" -pass=abc -grp=usuarios
+
+#CAMBIAR PROPIETARIO------------------------------------------------
+chown -path=/1-2 -user=user1
+
+#------------------------REPORTES 10----------------
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte10_tree.jpg" -name=tree
+
+
+pause
+mkdisk -param=x #ERR
+
+
+#CREAR ARCHIVO------------------------------------------------
+mkfile -path=/1-2/F.txt -size=768
+mkfile -path=/1-2/FF.txt -size=1792 # INDIRECTO SIMPLE
+mkfile -path=/2-1/FFF.txt -size=18176 # INDIRECTO DOBLE
+mkfile -path=/2-1/FFFF.txt -size=280320 # INDIRECTO TRIPLE
+mkfile -path=/3-1/F.txt -size=768
+
+#CREAR CARPETA INDIRECTOS------------------------------------------------
+mkdir -path=/Findirecto
+mkdir -path=/Findirecto2
+
+#RENOMBRAR------------------------------------------------
+rename -path=/1-2/F.txt -name=Gucci.txt
+
+#------------------------REPORTES 11 ---------------
+rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte11_tree.jpg" -name=tree
+
+#FIND------------------------------------------------
+find -path="/" -name=*
+find -path="/" -name="?.*"
+
+pause
+mkdisk -param=x #ERR
+
+
+#exec -path=../avanzado.mia
