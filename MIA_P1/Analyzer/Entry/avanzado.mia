@@ -93,7 +93,7 @@ mkdir -path=/srv
 mkdir -path=/sys
 mkdir -path=/tmp
 mkdir -path=/var
-mkdir -path="/home/archivos/archivos 19"
+mkdir -r -path="/home/archivos/archivos 19"
 mkdir -r -path=/home/archivos/user/docs/usac 
 mkdir -r -path=/home/archivos/carpeta1/carpeta2/carpeta3/carpeta4/carpeta5 
 
