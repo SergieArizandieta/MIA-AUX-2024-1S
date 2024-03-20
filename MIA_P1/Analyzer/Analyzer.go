@@ -2,6 +2,7 @@ package Analyzer
 
 import (
 	"MIA_P1/DiskManagement"
+	"MIA_P1/FileManager"
 	"MIA_P1/FileSystem"
 	"MIA_P1/User"
 	"bufio"
@@ -63,9 +64,44 @@ func AnalyzeCommnad(command string, params string) {
 		fn_login(params)
 	} else if strings.Contains(command, "logout") {
 		fn_logout()
+	} else if strings.Contains(command, "mkusr") {
+		fn_mkusr(params)
 	} else {
 		fmt.Println("Error: Command not found")
 	}
+
+}
+
+func fn_mkusr(input string) {
+	// Define flags
+	fs := flag.NewFlagSet("login", flag.ExitOnError)
+	user := fs.String("user", "", "Usuario")
+	pass := fs.String("pass", "", "Contraseña")
+	grp := fs.String("grp", "", "grupo")
+
+	// Parse the flags
+	fs.Parse(os.Args[1:])
+
+	// find the flags in the input
+	matches := re.FindAllStringSubmatch(input, -1)
+
+	// Process the input
+	for _, match := range matches {
+		flagName := match[1]
+		flagValue := match[2]
+
+		flagValue = strings.Trim(flagValue, "\"")
+
+		switch flagName {
+		case "user", "pass", "grp":
+			fs.Set(flagName, flagValue)
+		default:
+			fmt.Println("Error: Flag not found")
+		}
+	}
+
+	// Call the function
+	FileManager.Mkusr(*user, *pass, *grp)
 
 }
 
