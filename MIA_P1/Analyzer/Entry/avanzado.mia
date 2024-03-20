@@ -205,41 +205,94 @@ mkdisk -param=x #ERR
 
 #EXT3------------------------------------------------
 #CREACION DE CARPETAS------------------------------------------------
+
+#=== 1
+#.
+#..
+# user.txt
 mkdir -path=/1-2
 
+#=== 2
 mkdir -path=/2-1
 mkdir -path=/2-2
-
 mkdir -path=/3-1
 mkdir -path=/3-2
 
+#=== 3
 mkdir -path=/4-1
 mkdir -path=/4-2
-
 mkdir -path=/5-1
 mkdir -path=/5-2
 
+#=== 4
 mkdir -path=/6-1
 mkdir -path=/6-2
-
 mkdir -path=/7-1
 mkdir -path=/7-2
 
+#=== 5
 mkdir -path=/8-1
 mkdir -path=/8-2
-
 mkdir -path=/9-1
 mkdir -path=/9-2
 
+#=== 6
 mkdir -path=/10-1
 mkdir -path=/10-2
-
 mkdir -path=/11-1
 mkdir -path=/11-2
 
+#=== 7
 mkdir -path=/12-1
 mkdir -path=/12-2
+mkdir -path=/13-1
+mkdir -path=/13-2
 
+#=== 8
+mkdir -path=/14-1
+mkdir -path=/14-2
+mkdir -path=/15-1
+mkdir -path=/15-2
+
+#=== 9
+mkdir -path=/16-1
+mkdir -path=/16-2
+mkdir -path=/17-1
+mkdir -path=/17-2
+
+#=== 10
+mkdir -path=/18-1
+mkdir -path=/18-2
+mkdir -path=/19-1
+mkdir -path=/19-2
+
+#=== 11
+mkdir -path=/20-1
+mkdir -path=/20-2
+mkdir -path=/21-1
+mkdir -path=/21-2
+
+#=== 12
+mkdir -path=/22-1
+mkdir -path=/22-2
+mkdir -path=/23-1
+mkdir -path=/23-2
+
+#=== indirecto
+mkdir -path=/indirecto-1
+mkdir -path=/indirecto-2
+mkdir -path=/indirecto-3
+mkdir -path=/indirecto-4
+
+mkdir -path=/indirecto-5
+mkdir -path=/indirecto-6
+mkdir -path=/indirecto-7
+mkdir -path=/indirecto-8
+
+mkdir -path=/indirecto-9
+mkdir -path=/indirecto-10
+mkdir -path=/indirecto-11
+mkdir -path=/indirecto-12
 
 #------------------------REPORTES 7----------------
 rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte7_tree.jpg" -name=tree
