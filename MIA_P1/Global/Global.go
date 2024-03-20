@@ -1,8 +1,8 @@
 package Global
 
 type UserInfo struct {
-    ID     int
-    Nombre string
+	ID     string
+	Status bool
 }
 
 var Usuario UserInfo

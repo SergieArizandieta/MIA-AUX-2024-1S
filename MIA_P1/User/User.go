@@ -2,6 +2,7 @@ package User
 
 import (
 	//  "os"
+	"MIA_P1/Global"
 	"MIA_P1/Structs"
 	"MIA_P1/Utilities"
 	"MIA_P1/UtilitiesInodes"
@@ -17,6 +18,12 @@ func Login(user string, pass string, id string) {
 	fmt.Println("Pass:", pass)
 	fmt.Println("Id:", id)
 
+	if Global.Usuario.Status {
+		fmt.Println("User already logged in")
+		return
+	}
+
+	var login bool = false
 	driveletter := string(id[0])
 
 	// Open bin file
@@ -80,24 +87,27 @@ func Login(user string, pass string, id string) {
 		return
 	}
 
-	// getInodeFileData -> Iterate the I_Block n concat the data
-
-	var Fileblock Structs.Fileblock
-	// Read object from bin file
-	if err := Utilities.ReadObject(file, &Fileblock, int64(tempSuperblock.S_block_start+crrInode.I_block[0]*int32(binary.Size(Structs.Fileblock{})))); err != nil {
-		return
-	}
+	// read file data
+	data := UtilitiesInodes.GetInodeFileData(crrInode, file, tempSuperblock)
 
 	fmt.Println("Fileblock------------")
-	data := string(Fileblock.B_content[:])
 	// Dividir la cadena en líneas
 	lines := strings.Split(data, "\n")
+
+	// login -user=root -pass=123 -id=A119
 
 	// Iterar a través de las líneas
 	for _, line := range lines {
 		// Imprimir cada línea
-		fmt.Println(line)
+		// fmt.Println(line)
+		words := strings.Split(line, ",")
 
+		if len(words) == 5 {
+			if (strings.Contains(words[3], user)) && (strings.Contains(words[4], pass)) {
+				login = true
+				break
+			}
+		}
 	}
 
 	// Print object
@@ -106,5 +116,23 @@ func Login(user string, pass string, id string) {
 	// Close bin file
 	defer file.Close()
 
+	if login {
+		fmt.Println("User logged in")
+		Global.Usuario.ID = id
+		Global.Usuario.Status = true
+	}
+
 	fmt.Println("======End LOGIN======")
+}
+
+func Logout() {
+	fmt.Println("======Start LOGOUT======")
+	if Global.Usuario.Status {
+		Global.Usuario.ID = ""
+		Global.Usuario.Status = false
+		fmt.Println("User logged out")
+	} else {
+		fmt.Println("No user logged in")
+	}
+	fmt.Println("======End LOGOUT======")
 }

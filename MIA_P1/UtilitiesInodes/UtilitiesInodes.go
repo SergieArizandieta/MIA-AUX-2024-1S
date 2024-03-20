@@ -58,7 +58,7 @@ func SarchInodeByPath(StepsPath []string, Inode Structs.Inode, file *os.File, te
 
 				var crrFolderBlock Structs.Folderblock
 				// Read object from bin file
-				if err := Utilities.ReadObject(file, &crrFolderBlock, int64(tempSuperblock.S_block_start+block*int32(binary.Size(Structs.Inode{})))); err != nil {
+				if err := Utilities.ReadObject(file, &crrFolderBlock, int64(tempSuperblock.S_block_start+block*int32(binary.Size(Structs.Folderblock{})))); err != nil {
 					return -1
 				}
 
@@ -92,6 +92,36 @@ func SarchInodeByPath(StepsPath []string, Inode Structs.Inode, file *os.File, te
 	}
 
 	fmt.Println("======End SARCHINODEBYPATH======")
-
 	return 0
+}
+
+func GetInodeFileData(Inode Structs.Inode, file *os.File, tempSuperblock Structs.Superblock) string {
+	fmt.Println("======Start GETINODEFILEDATA======")
+	index := int32(0)
+	// define content as a string
+	var content string
+
+	// Iterate over i_blocks from Inode
+	for _, block := range Inode.I_block {
+		if block != -1 {
+			if index < 13 {
+				//CASO DIRECTO
+
+				var crrFileBlock Structs.Fileblock
+				// Read object from bin file
+				if err := Utilities.ReadObject(file, &crrFileBlock, int64(tempSuperblock.S_block_start+block*int32(binary.Size(Structs.Fileblock{})))); err != nil {
+					return ""
+				}
+
+				content += string(crrFileBlock.B_content[:])
+
+			} else {
+				//CASO INDIRECTO
+			}
+		}
+		index++
+	}
+
+	fmt.Println("======End GETINODEFILEDATA======")
+	return content
 }

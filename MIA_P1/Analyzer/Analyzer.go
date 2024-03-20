@@ -1,37 +1,37 @@
 package Analyzer
 
 import (
-	"flag"
-	"fmt"
-	"bufio"
-	"os"
-	"regexp"
-	"strings"
 	"MIA_P1/DiskManagement"
 	"MIA_P1/FileSystem"
 	"MIA_P1/User"
+	"bufio"
+	"flag"
+	"fmt"
+	"os"
+	"regexp"
+	"strings"
 )
 
 var re = regexp.MustCompile(`-(\w+)=("[^"]+"|\S+)`)
 
 func getCommandAndParams(input string) (string, string) {
-	parts := strings.Fields(input) 
+	parts := strings.Fields(input)
 	if len(parts) > 0 {
-		command := strings.ToLower(parts[0])                   
-		params := strings.Join(parts[1:], " ") 
+		command := strings.ToLower(parts[0])
+		params := strings.Join(parts[1:], " ")
 		return command, params
 	}
 	return "", input
 }
 
-func Analyze(){
+func Analyze() {
 
 	for true {
 		var input string
 		fmt.Println("Enter command: ")
 
 		scanner := bufio.NewScanner(os.Stdin)
-		scanner.Scan() 
+		scanner.Scan()
 		input = scanner.Text()
 
 		command, params := getCommandAndParams(input)
@@ -49,25 +49,31 @@ func Analyze(){
 	}
 }
 
-func AnalyzeCommnad(command string, params string){
+func AnalyzeCommnad(command string, params string) {
 
 	if strings.Contains(command, "mkdisk") {
 		fn_mkdisk(params)
-	}else if strings.Contains(command, "fdisk") {
+	} else if strings.Contains(command, "fdisk") {
 		fn_fdisk(params)
-	}else if strings.Contains(command, "mount") {
+	} else if strings.Contains(command, "mount") {
 		fn_mount(params)
-	}else if strings.Contains(command, "mkfs") {
+	} else if strings.Contains(command, "mkfs") {
 		fn_mkfs(params)
-	}else if strings.Contains(command, "login") {
+	} else if strings.Contains(command, "login") {
 		fn_login(params)
-	}else{
+	} else if strings.Contains(command, "logout") {
+		fn_logout()
+	} else {
 		fmt.Println("Error: Command not found")
 	}
 
 }
 
-func fn_login(input string){
+func fn_logout() {
+	User.Logout()
+}
+
+func fn_login(input string) {
 	// Define flags
 	fs := flag.NewFlagSet("login", flag.ExitOnError)
 	user := fs.String("user", "", "Usuario")
@@ -100,7 +106,7 @@ func fn_login(input string){
 
 }
 
-func fn_mkfs(input string){
+func fn_mkfs(input string) {
 	// Define flags
 	fs := flag.NewFlagSet("mkfs", flag.ExitOnError)
 	id := fs.String("id", "", "Id")
@@ -130,11 +136,10 @@ func fn_mkfs(input string){
 
 	// Call the function
 	FileSystem.Mkfs(*id, *type_, *fs_)
-	
 
 }
 
-func fn_mount(input string){
+func fn_mount(input string) {
 	// Define flags
 	fs := flag.NewFlagSet("mount", flag.ExitOnError)
 	driveletter := fs.String("driveletter", "", "Letra")
@@ -200,7 +205,7 @@ func fn_fdisk(input string) {
 	DiskManagement.Fdisk(*size, *driveletter, *name, *unit, *type_, *fit)
 }
 
-func fn_mkdisk(params string){
+func fn_mkdisk(params string) {
 	// Define flags
 	fs := flag.NewFlagSet("mkdisk", flag.ExitOnError)
 	size := fs.Int("size", 0, "Tamaño")
@@ -221,15 +226,14 @@ func fn_mkdisk(params string){
 		flagValue = strings.Trim(flagValue, "\"")
 
 		switch flagName {
-			case "size", "fit", "unit":
-				fs.Set(flagName, flagValue)
-			default:
-				fmt.Println("Error: Flag not found")
+		case "size", "fit", "unit":
+			fs.Set(flagName, flagValue)
+		default:
+			fmt.Println("Error: Flag not found")
 		}
 	}
 
 	// Call the function
 	DiskManagement.Mkdisk(*size, *fit, *unit)
 
-} 
-
+}
