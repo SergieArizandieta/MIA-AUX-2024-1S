@@ -304,7 +304,7 @@ rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte7_journaling.jpg" -
 pause
 mkdisk -param=x #ERR
 
-#loss -id=192a
+loss -id=192a
 #------------------------REPORTES 8----------------
 rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte8_tree.jpg" -name=tree
 rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte8_journaling.jpg" -name=journaling
@@ -314,7 +314,7 @@ pause
 mkdisk -param=x #ERR
 
 
-#recovery -id=192a
+recovery -id=192a
 #------------------------REPORTES 9----------------
 rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte9_tree.jpg" -name=tree
 rep -id=192a -path="/home/serchiboi/archivos/reportes/reporte9_journaling.jpg" -name=journaling
