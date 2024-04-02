@@ -118,7 +118,7 @@ mkfile -path=/home/archivos/user/docs/Tarea2.txt -size=768
 #Para este comando hay que crear un archivo en la computadora y en cont poner la ruta de ese archivo
 #Crear un archivo txt en su escritorio llamado IA
 
-mkfile -path=/home/archivos/user/docs/Tarea3.txt -size=10 #-cont=/home/archivos/user/Desktop/IA.txt
+mkfile -path=/home/archivos/user/docs/Tarea3.txt -size=10 -cont=/home/archivos/user/Desktop/IA.txt
 
 mkfile -path="/home/archivos/noexiste/b1.txt" #ERRNO EXISTE RUTA
 
@@ -146,6 +146,9 @@ mkdisk -param=x #ERR
 #REMOVER------------------------------------------------
 remove -path=/home/archivos/user/docs/usac #Carpeta
 remove -path=/home/archivos/user/docs/Tarea.txt #Archivo
+
+#EDITAR------------------------------------------------
+edit -path=/home/archivos/user/docs/Tarea3.txt -cont=/home/archivos/user/Desktop/IA.txt
 
 #------------------------REPORTE 4----------------
 rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte4_tree.jpg" -name=tree
