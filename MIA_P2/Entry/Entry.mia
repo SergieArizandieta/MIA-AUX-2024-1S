@@ -6,7 +6,7 @@
 #CAMBIAR LOS IDS
 
 #CREACION DE DISCOS---------------------------------------------------
-Mkdisk -size=50 -unit=M -fit=FF                   # 50M A
+Mkdisk -size=60 -unit=M -fit=FF                   # 60M A
 Mkdisk -unit=k -size=51200 -fit=BF                # 50M B
 mkDisk -size=14                                   # 13M C
 mkdisk -size=51200 -unit=K                        # 50M D
@@ -14,11 +14,11 @@ mkDisk -size=20 -unit=M -fit=WF                   # 20M E
 
 #CREACION DE PARTICIONES---------------------------------------------------
 #DISCO 1
-fdisk -type=P -unit=b -name=Part1 -size=10485760 -driveletter=A -fit=BF # 10M
+fdisk -type=P -unit=b -name=Part1 -size=20971520 -driveletter=A -fit=BF # 20M
 fdisk -type=P -unit=k -name=Part2 -size=10240 -driveletter=A -fit=BF    # 10M
 fdisk -type=P -unit=M -name=Part3 -size=10 -driveletter=A -fit=BF       # 10M
 fdisk -type=P -unit=b -name=Part4 -size=10485760 -driveletter=A -fit=BF # 10M
-# LIBRE DISCO 1: 50-4*10 = 10 -> 20%
+# LIBRE DISCO 1: 60-10-10-10-20 = 10 
 
 #DISCO 3
 fdisk -type=P -unit=m -name=Part26 -size=4 -driveletter=C     #4M
