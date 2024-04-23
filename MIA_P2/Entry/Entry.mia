@@ -1,0 +1,162 @@
+#ENTRADA PRIMER PARTE MIA
+#Seccion A - Sergie Arizandieta
+#1S 2024
+#CAMBIAR /home/serchiboi -> POR SU USUARIO EJ ->  /home/SU_USER 
+#LAS RUTAS DE LOS REPORTES CAMBIARLOS DE SER NECESARIO PARA QUE LES FUNCIONE EN SU ENTORNO
+#CAMBIAR LOS IDS
+
+#CREACION DE DISCOS---------------------------------------------------
+Mkdisk -size=50 -unit=M -fit=FF                   # 50M A
+Mkdisk -unit=k -size=51200 -fit=BF                # 50M B
+mkDisk -size=14                                   # 13M C
+mkdisk -size=51200 -unit=K                        # 50M D
+mkDisk -size=20 -unit=M -fit=WF                   # 20M E
+
+#CREACION DE PARTICIONES---------------------------------------------------
+#DISCO 1
+fdisk -type=P -unit=b -name=Part1 -size=10485760 -driveletter=A -fit=BF # 10M
+fdisk -type=P -unit=k -name=Part2 -size=10240 -driveletter=A -fit=BF    # 10M
+fdisk -type=P -unit=M -name=Part3 -size=10 -driveletter=A -fit=BF       # 10M
+fdisk -type=P -unit=b -name=Part4 -size=10485760 -driveletter=A -fit=BF # 10M
+# LIBRE DISCO 1: 50-4*10 = 10 -> 20%
+
+#DISCO 3
+fdisk -type=P -unit=m -name=Part26 -size=4 -driveletter=C     #4M
+fdisk -type=P -unit=m -name=Part27 -size=4 -driveletter=C     #4M
+fdisk -type=P -unit=m -name=Part28 -size=1 -driveletter=C     #1M
+#LIBRE DISCO 3: 14-9= 5 -> 35.71%
+
+#MONTAR PARTICIONES---------------------------------------------------
+#DISCO 1
+mount -driveletter=A -name=Part1 #191a -> id1 -> cambiar el 191a por el ID que a ustedes les genera
+mount -driveletter=A -name=Part2 #191b -> id2 -> cambiar el 191b por el ID que a ustedes les genera
+
+#DISCO 3
+mount -driveletter=C -name=Part26 #193a -> id3 -> cambiar el 193a por el ID que a ustedes les genera
+
+#REPORTES---------------------------------------------------
+#DISCO 1
+rep -id=191a -Path=/home/serchiboi/archivos/reports/reporte2.jpg -name=disk #-> id1
+rep -id=191a -Path=/home/serchiboi/archivos/reports/reporte3.jpg -name=mbr #-> id1
+
+#DISCO 3
+rep -id=193a -Path=/home/serchiboi/archivos/reports/reporte8.jpg -name=disk #-> id3
+rep -id=193a -Path=/home/serchiboi/archivos/reports/reporte9.jpg -name=mbr #-> id3
+
+#CREACION DE SISTEMA DE ARCHIVOS------------------------------------------------
+mkfs -type=full -id=191a -fs=2fs
+
+#LOGIN------------------------------------------------
+login -user=root -pass=123 -id=191a
+
+CREACION DE CARPETAS------------------------------------------------
+
+mkdir -r -path="/calificacion/U 2024/9no Semestre" #RECURSIVO
+
+mkdir -path="/calificacion/U 2024/9no Semestre/Gerenciales 2"
+mkfile -path="/calificacion/U 2024/9no Semestre/Gerenciales 2/lab.txt" -size=5
+mkfile -path="/calificacion/U 2024/9no Semestre/Gerenciales 2/magistral.txt" -size=5
+
+mkdir -path="/calificacion/U 2024/9no Semestre/IA"
+mkfile -path="/calificacion/U 2024/9no Semestre/IA/lab1.txt" -size=10
+mkfile -path="/calificacion/U 2024/9no Semestre/IA/magistral1.txt" -size=10
+
+mkdir -path="/calificacion/U 2024/9no Semestre/Modela 1"
+mkfile -path="/calificacion/U 2024/9no Semestre/Modela 1/lab2.txt" -size=20
+mkfile -path="/calificacion/U 2024/9no Semestre/Modela 1/magistral2.txt" -size=20
+
+mkdir -path="/calificacion/U 2024/9no Semestre/Semi 2"
+mkfile -path="/calificacion/U 2024/9no Semestre/Semi 2/lab3.txt" -size=30
+mkfile -path="/calificacion/U 2024/9no Semestre/Semi 2/magistral3.txt" -size=30
+
+mkdir -path="/calificacion/U 2024/9no Semestre/Semi de Investigacion"
+mkfile -path="/calificacion/U 2024/9no Semestre/Semi de Investigacion/lab4.txt" -size=40
+mkfile -path="/calificacion/U 2024/9no Semestre/Semi de Investigacion/magistral4.txt" -size=40
+
+mkdir -path="/calificacion/U 2024/Files/"
+mkfile -path="/calificacion/U 2024/Files/boleta.txt"
+mkfile -path="/calificacion/U 2024/Files/comprobacion.txt"
+
+mkdir -path=/calificacion/MIA
+mkfile -path=/calificacion/MIA/Explotar.txt -size=768
+mkfile -r -path=/calificacion/MIA/Rescursivo/r1/r2/r3/entrada.txt #RECURSIVO
+
+rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_tree.jpg" -name=tree #-> id1
+
+logout
+
+#SISTEMA  CONSTRUIR------------------------------------------------
+/
+|
+|
+user.txt
+calificacion
+            |
+            |
+            U 2024
+                  |
+                  |
+                  9no Semestre
+                              |
+                              |
+                              Gerenciales 2
+                                          |
+                                          |
+                                          lab.txt
+                                          magistral.txt
+                              |
+                              |
+                              IA
+                                 |
+                                 |
+                                 lab1.txt
+                                 magistral1.txt
+                              |
+                              |
+                              Modela 1
+                                       |
+                                       |
+                                       lab2.txt
+                                       magistral2.txt
+                              |
+                              |
+                              Semi 2
+                                    |
+                                    |
+                                    lab3.txt
+                                    magistral3.txt
+                              |
+                              |
+                              Semi de Investigacion
+                                                   |
+                                                   |
+                                                   lab4.txt
+                                                   magistral4.txt
+                  |
+                  |
+                  Files
+                        |
+                        |
+                        boleta.txt
+                        comprobacion.txt
+            |
+            |
+            MIA
+               |
+               |
+               Explotar.txt
+               |
+               |
+               Rescursivo
+                        |
+                        |
+                        r1
+                           |
+                           |
+                           r2
+                              |
+                              |
+                              r3
+                                 |
+                                 |
+                                 entrada.txt
