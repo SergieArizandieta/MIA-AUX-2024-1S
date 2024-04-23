@@ -34,7 +34,7 @@ mount -driveletter=A -name=Part2 #191b -> id2 -> cambiar el 191b por el ID que a
 #DISCO 3
 mount -driveletter=C -name=Part26 #193a -> id3 -> cambiar el 193a por el ID que a ustedes les genera
 
-#REPORTES---------------------------------------------------
+#REPORTES 1---------------------------------------------------
 #DISCO 1
 rep -id=191a -Path=/home/serchiboi/archivos/reports/reporte2.jpg -name=disk #-> id1
 rep -id=191a -Path=/home/serchiboi/archivos/reports/reporte3.jpg -name=mbr #-> id1
@@ -81,6 +81,7 @@ mkdir -path=/calificacion/MIA
 mkfile -path=/calificacion/MIA/Explotar.txt -size=768
 mkfile -r -path=/calificacion/MIA/Rescursivo/r1/r2/r3/entrada.txt #RECURSIVO
 
+#REPORTES 2---------------------------------------------------
 rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_tree.jpg" -name=tree #-> id1
 
 logout
