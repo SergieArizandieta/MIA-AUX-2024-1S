@@ -6,12 +6,14 @@ export default function Partition() {
   const { id } = useParams()
   const [data, setData] = useState([])
   const navigate = useNavigate()
+  const [data2, setData2] = useState([])
 
   // execute the fetch command only once and when the component is loaded
   useState(() => {
-    // fetch('http://localhost:3001/api/commands') id
-    //   .then(response => response.json())
-    //   .then(rawData => {console.log(rawData);  setData(rawData.rutas);})
+    fetch('http://localhost:4000/tasks')
+      .then(response => response.json())
+      .then(data => {console.log(data); setData2(data);})
+    
     const rawData = {
       "rutas": ["Part1", "Part2", "Part3", "Part4", "Part5",]
     }
@@ -34,6 +36,9 @@ export default function Partition() {
       <br />
       <br />
 
+      <h1>{data2.Status}</h1>
+      <h2>{data2.Value}</h2>
+
       <div style={{ border: "red 1px solid", display: "flex", flexDirection: "row" }}>
 
         {
@@ -49,7 +54,7 @@ export default function Partition() {
                 onClick={() => onClick(objIterable)}
               >
                 <img src={partitionIMG} alt="disk" style={{ width: "100px" }} />
-                <p1>{objIterable}</p1>
+                <p>{objIterable}</p>
               </div>
             )
           })

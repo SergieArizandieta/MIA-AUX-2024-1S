@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "start": "go run main.go",
+    "build": "go build main.go",
+    "dev": "CompileDaemon  -directory=./ -command=\"./backend.exe\""
+  }
+}

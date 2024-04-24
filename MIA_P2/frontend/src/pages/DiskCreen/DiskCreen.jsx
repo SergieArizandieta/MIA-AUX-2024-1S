@@ -8,14 +8,32 @@ export default function DiskCreen() {
   
   // execute the fetch command only once and when the component is loaded
   useState(() => {
-    // fetch('http://localhost:3001/api/commands')
-    //   .then(response => response.json())
-    //   .then(rawData => {console.log(rawData);  setData(rawData.rutas);})
-    const rawData = {
-      "rutas":["A.dsk","B.dsk","C.dsk","D.dsk","A.dsk","B.dsk","C.dsk","D.dsk","A.dsk","B.dsk","C.dsk","D.dsk"]
-    }
-    setData(rawData.rutas)
+ 
+    // const rawData = {
+    //   "rutas":["A.dsk","B.dsk","C.dsk","D.dsk","A.dsk","B.dsk","C.dsk","D.dsk","A.dsk","B.dsk","C.dsk","D.dsk"]
+    // }
+    // setData(rawData.rutas)
 
+    var dataF = {
+      User: 'root',
+      Password: 'admin'
+    }
+    
+    fetch('http://localhost:4000/tasks', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json' 
+      },
+      body: JSON.stringify(dataF)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data); // Do something with the response
+      setData(data.List)
+    })
+    .catch(error => {
+      console.error('There was an error with the fetch operation:', error);
+    });
   }, [])
 
   const onClick = (objIterable) => {
@@ -50,7 +68,7 @@ export default function DiskCreen() {
               onClick={() => onClick(objIterable)}
               >
                 <img src={diskIMG} alt="disk" style={{width: "100px"}} />
-                <p1>{objIterable}</p1>
+                <p>{objIterable}</p>
               </div>
             )
           })
