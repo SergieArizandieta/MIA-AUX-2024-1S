@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 
 
-export default function SingIn() {
+export default function SingIn({ip="localhost"}) {
    const { disk, part } = useParams()
 
    

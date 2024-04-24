@@ -2,7 +2,7 @@ import diskIMG from "../../assets/disk.png";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function DiskCreen() {
+export default function DiskCreen({ip="localhost"}) {
   const [data, setData] = useState([]) 
   const navigate = useNavigate()
   
@@ -18,8 +18,8 @@ export default function DiskCreen() {
       User: 'root',
       Password: 'admin'
     }
-    
-    fetch('http://localhost:4000/tasks', {
+    console.log(`fech to http://${ip}:4000/`)
+    fetch(`http://${ip}:4000/tasks`, {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json' 

@@ -2,7 +2,7 @@ import partitionIMG from "../../assets/partition.png";
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-export default function Partition() {
+export default function Partition({ip="localhost"}) {
   const { id } = useParams()
   const [data, setData] = useState([])
   const navigate = useNavigate()
@@ -10,7 +10,8 @@ export default function Partition() {
 
   // execute the fetch command only once and when the component is loaded
   useState(() => {
-    fetch('http://localhost:4000/tasks')
+    console.log(`fech to http://${ip}:4000/`)
+    fetch(`http://${ip}:4000/tasks`)
       .then(response => response.json())
       .then(data => {console.log(data); setData2(data);})
     
