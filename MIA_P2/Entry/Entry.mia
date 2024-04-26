@@ -74,12 +74,12 @@ mkfile -path="/calificacion/U 2024/9no Semestre/SemiInvesti/lab4.txt" -size=40
 mkfile -path="/calificacion/U 2024/9no Semestre/SemiInvesti/magisl4.txt" -size=40
 
 mkdir -path="/calificacion/U 2024/Files/"
-mkfile -path="/calificacion/U 2024/Files/boleta.txt"
-mkfile -path="/calificacion/U 2024/Files/comprob.txt"
+mkfile -path="/calificacion/U 2024/Files/boleta.txt"  -size=99
+mkfile -path="/calificacion/U 2024/Files/comprob.txt" -size=99
 
 mkdir -path=/calificacion/MIA
 mkfile -path=/calificacion/MIA/Explotar.txt -size=768
-mkfile -r -path=/calificacion/MIA/Rescursivo/r1/r2/r3/entrada.txt #RECURSIVO
+mkfile -r -path=/calificacion/MIA/Rescursivo/r1/r2/r3/entrada.txt  -size=99 #RECURSIVO
 
 #REPORTES 2---------------------------------------------------
 rep -id=191a -path="/home/serchiboi/archivos/reportes/reporte5_tree.jpg" -name=tree #-> id1
